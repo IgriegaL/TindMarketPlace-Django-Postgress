@@ -6,14 +6,14 @@ from .forms import UserForm, ProductForm
 
 def index(request):
     products = Product.objects.all()
-    return render(request, '/myapp/templates/index.html', {'products': products})
+    return render(request, 'index.html', {'products': products})
 
 def register(request):
     registered = False
 
     if request.method == 'POST':
         user_form = UserForm(request.POST)
-        profile_form = UserProfileForm(request.POST, request.FILES)
+        profile_form = UserProfile(request.POST, request.FILES)
 
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
@@ -34,9 +34,9 @@ def register(request):
             print(user_form.errors, profile_form.errors)
     else:
         user_form = UserForm()
-        profile_form = UserProfileForm()
+        profile_form = UserProfile()
 
-    return render(request, 'myapp/register.html', {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
+    return render(request, 'register.html', {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
 
 def user_login(request):
     if request.method == 'POST':
@@ -55,7 +55,7 @@ def user_login(request):
             print("Invalid login details: {0}, {1}".format(username, password))
             return HttpResponse("Invalid login details supplied.")
     else:
-        return render(request, 'myapp/login.html', {})
+        return render(request, 'login.html', {})
 
 @login_required
 def user_logout(request):
@@ -78,8 +78,8 @@ def add_product(request):
     else:
         form = ProductForm()
 
-    return render(request, 'myapp/add_product.html', {'form': form})
+    return render(request, 'add_product.html', {'form': form})
 
 def product_detail(request, pk):
     product = Product.objects.get(pk=pk)
-    return render(request, 'myapp/product_detail.html', {'product':product})
+    return render(request, 'product_detail.html', {'product':product})

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Product
+from .models import Product, UserProfile
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -14,3 +14,4 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ('name', 'description')
+
