@@ -13,4 +13,4 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ('name', 'description', 'image', 'price')
+        fields = ('name', 'description')

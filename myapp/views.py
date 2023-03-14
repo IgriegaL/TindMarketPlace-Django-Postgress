@@ -6,7 +6,7 @@ from .forms import UserForm, ProductForm
 
 def index(request):
     products = Product.objects.all()
-    return render(request, 'myapp/index.html', {'products': products})
+    return render(request, '/myapp/templates/index.html', {'products': products})
 
 def register(request):
     registered = False
