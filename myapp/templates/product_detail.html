@@ -1,0 +1,10 @@
+{% extends "myapp/base.html" %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ product.name }}</h1>
+    <p>{{ product.description }}</p>
+    <p>Price: {{ product.price }}</p>
+    <p>Owner: {{ product.owner }}</p>
+{% endblock %}
