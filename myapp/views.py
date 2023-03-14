@@ -13,30 +13,30 @@ def register(request):
 
     if request.method == 'POST':
         user_form = UserForm(request.POST)
-        profile_form = UserProfile(request.POST, request.FILES)
+        #profile_form = UserProfile(request.POST, request.FILES)
 
-        if user_form.is_valid() and profile_form.is_valid():
+        if user_form.is_valid(): #and profile_form.is_valid():
             user = user_form.save()
-
             user.set_password(user.password)
             user.save()
-
+            """
             profile = profile_form.save(commit=False)
             profile.user = user
 
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
 
-            profile.save()
+            profile.save()"""
 
             registered = True
         else:
-            print(user_form.errors, profile_form.errors)
+            print(user_form.errors)
+            #print(user_form.errors, profile_form.errors)
     else:
         user_form = UserForm()
-        profile_form = UserProfile()
-
-    return render(request, 'register.html', {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
+        #profile_form = UserProfile()
+    #return render(request, 'register.html', {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
+    return render(request, 'register.html', {'user_form': user_form, 'registered': registered})
 
 def user_login(request):
     if request.method == 'POST':
