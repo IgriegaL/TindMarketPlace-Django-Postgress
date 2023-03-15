@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -13,29 +14,16 @@ def register(request):
 
     if request.method == 'POST':
         user_form = UserForm(request.POST)
-        #profile_form = UserProfile(request.POST, request.FILES)
 
-        if user_form.is_valid(): #and profile_form.is_valid():
+        if user_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
             user.save()
-            """
-            profile = profile_form.save(commit=False)
-            profile.user = user
-
-            if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
-
-            profile.save()"""
-
             registered = True
         else:
             print(user_form.errors)
-            #print(user_form.errors, profile_form.errors)
     else:
         user_form = UserForm()
-        #profile_form = UserProfile()
-    #return render(request, 'register.html', {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
     return render(request, 'register.html', {'user_form': user_form, 'registered': registered})
 
 def user_login(request):
@@ -50,12 +38,11 @@ def user_login(request):
                 login(request, user)
                 return redirect('index')
             else:
-                return HttpResponse("Your account is disabled.")
+                messages.error(request, 'Tu cuenta está deshabilitada.')
         else:
-            print("Invalid login details: {0}, {1}".format(username, password))
-            return HttpResponse("Invalid login details supplied.")
-    else:
-        return render(request, 'login.html', {})
+            messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
+    
+    return render(request, 'login.html')
 
 @login_required
 def user_logout(request):
