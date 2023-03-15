@@ -3,14 +3,16 @@
 {% block title %}Inicio{% endblock %}
 
 {% block content %}
-    <h1>Inicio</h1>
+    <h1>Bienvenido/a</h1>
     {% if products %}
         <ul>
             {% for product in products %}
                 <li>
                     <h1><a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a></h1>
-                    <p>{{ product.description }}</p>
-                    <p>Price: {{ product.price }}</p>
+                    <P></P>
+                    <p>Descripción:{{ product.description }}</p>
+                    <p>Categoría: {{ product.tema }}</p>
+                    <p>Precio: {{ product.price }}</p>
                 
                 </li>
             {% endfor %}
