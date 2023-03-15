@@ -4,8 +4,10 @@
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
+    <p><a href="{% url 'index' %}">🏠</a></p>
     {% if user.is_authenticated %}
         <p>Welcome, {{ user.username }}! (<a href="{% url 'logout' %}">Logout</a>)</p>
+        <p><a href="{% url 'add_product' %}">Agrega producto</a></p>
     {% else %}
         <p><a href="{% url 'login' %}">Login</a></p>
         <p><a href="{% url 'register' %}">Registrar</a></p>

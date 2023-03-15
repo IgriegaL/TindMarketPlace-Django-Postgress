@@ -1,16 +1,21 @@
 {% extends "base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Inicio{% endblock %}
 
 {% block content %}
-    <h1>Home</h1>
+    <h1>Inicio</h1>
     {% if products %}
         <ul>
             {% for product in products %}
-                <li><a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a></li>
+                <li>
+                    <h1><a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a></h1>
+                    <p>{{ product.description }}</p>
+                    <p>Price: {{ product.price }}</p>
+                
+                </li>
             {% endfor %}
         </ul>
     {% else %}
-        <p>No products are available.</p>
+        <p>No hay productos disponible</p>
     {% endif %}
 {% endblock %}

@@ -83,3 +83,20 @@ def add_product(request):
 def product_detail(request, pk):
     product = Product.objects.get(pk=pk)
     return render(request, 'product_detail.html', {'product':product})
+
+@login_required
+def edit_product(request, pk):
+    product = Product.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=product)
+
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+        else:
+            print(form.errors)
+    else:
+        form = ProductForm(instance=product)
+
+    return render(request, 'edit_product.html', {'form': form, 'product': product})

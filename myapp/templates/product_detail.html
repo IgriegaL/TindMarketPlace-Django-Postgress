@@ -1,10 +1,11 @@
-{% extends "base.html" %}
-
-{% block title %}{{ product.name }}{% endblock %}
+{% extends 'base.html' %}
 
 {% block content %}
-    <h1>{{ product.name }}</h1>
-    <p>{{ product.description }}</p>
-    <p>Price: {{ product.price }}</p>
-    <p>Owner: {{ product.owner }}</p>
+  <h2>{{ product.name }}</h2>
+  <p>Price: {{ product.price }}</p>
+  <p>Description: {{ product.description }}</p>
+  <p>Added by: {{ product.user.username }}</p>
+  {% if user.is_authenticated and user == product.user %}
+    <a href="{% url 'edit_product' product.pk %}">Edit</a>
+  {% endif %}
 {% endblock %}
