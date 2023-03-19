@@ -7,10 +7,10 @@ from .forms import UserForm, ProductForm
 from django.views.generic import ListView
 
 
+
 def index(request):
     products = Product.objects.all()
     return render(request, 'index.html', {'products': products})
-
 
 def register(request):
     registered = False
@@ -29,7 +29,6 @@ def register(request):
         user_form = UserForm()
     return render(request, 'register.html', {'user_form': user_form, 'registered': registered})
 
-
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -44,22 +43,20 @@ def user_login(request):
             else:
                 messages.error(request, 'Tu cuenta está deshabilitada.')
         else:
-            messages.error(
-                request, 'Nombre de usuario o contraseña incorrectos.')
-
+            messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
+    
     return render(request, 'login.html')
-
 
 @login_required
 def user_logout(request):
     logout(request)
     return redirect('index')
 
-
 @login_required
 def add_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
+
         if form.is_valid():
             product = form.save(commit=False)
             product.user = request.user
@@ -73,11 +70,9 @@ def add_product(request):
 
     return render(request, 'add_product.html', {'form': form})
 
-
 def product_detail(request, pk):
     product = Product.objects.get(pk=pk)
-    return render(request, 'product_detail.html', {'product': product})
-
+    return render(request, 'product_detail.html', {'product':product})
 
 @login_required
 def edit_product(request, pk):
@@ -97,17 +92,12 @@ def edit_product(request, pk):
     return render(request, 'edit_product.html', {'form': form, 'product': product})
 
 # Vista todos los usuarios
-
-
 @login_required
 def user_list(request):
     users = get_user_model().objects.all()
     return render(request, 'user_list.html', {'users': users})
 
-# Vista todos los Productos
 
-
-@login_required
 class ProductListView(ListView):
     model = Product
     template_name = 'product_list.html'

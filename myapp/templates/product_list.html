@@ -18,7 +18,7 @@
                     <td>{{ product.name }}</td>
                     <td>{{ product.description }}</td>
                     <td>{{ product.price }}</td>
-                    
+                    <td> <a href="{% url 'product_detail' pk=product.pk %}"> Detalle</a></td>
                 </tr>
             {% endfor %}
         </tbody>
