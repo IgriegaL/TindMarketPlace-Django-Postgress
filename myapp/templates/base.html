@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>{% block title %} {% endblock %}</title>
-</head>
-<body>
+  </head>
+  <body>
     <p><a href="{% url 'index' %}">🏠</a></p>
     {% if user.is_authenticated %}
-        <p>Welcome, {{ user.username }}! (<a href="{% url 'logout' %}">Logout</a>)</p>
-        <p><a href="{% url 'add_product' %}">Agrega producto</a></p>
-        <p><a href="{% url 'user_list' %}">ver lista de usuario</a></p>
+    <p>
+      Welcome, {{ user.username }}! (<a href="{% url 'logout' %}">Logout</a>)
+    </p>
+    <p><a href="{% url 'add_product' %}">Agrega producto</a></p>
     {% else %}
-        <p><a href="{% url 'login' %}">Login</a></p>
-        <p><a href="{% url 'register' %}">Registrar</a></p>
-    {% endif %}
-    {% if user.is_staff == True %}
-        <p><a href="{% url 'user_list' %}">ver lista de usuario</a></p>
-    {% endif %}
-
-    {% block content %}{% endblock %}
-</body>
+    <p><a href="{% url 'login' %}">Login</a></p>
+    <p><a href="{% url 'register' %}">Registrar</a></p>
+    {% endif %} {% if user.is_staff %}
+    <p><a href="{% url 'user_list' %}">Ver lista de usuario</a></p>
+    {% endif %} {% block content %}{% endblock %}
+  </body>
 </html>
