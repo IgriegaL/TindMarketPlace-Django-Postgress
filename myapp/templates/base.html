@@ -15,6 +15,8 @@
     <p><a href="{% url 'register' %}">Registrar</a></p>
     {% endif %} {% if user.is_staff %}
     <p><a href="{% url 'user_list' %}">Ver lista de usuario</a></p>
+    <p><a href="{% url 'product_list' %}">Ver todos los productos</a></p>
+
     {% endif %} {% block content %}{% endblock %}
   </body>
 </html>
