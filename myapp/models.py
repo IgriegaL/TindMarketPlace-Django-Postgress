@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 class Product(models.Model):
     TEMAS_CHOICES = (
@@ -24,3 +25,11 @@ class UserProfile(models.Model):
     picture = models.ImageField(upload_to='profile_images', blank=True)
     def __str__(self):
         return self.user.username
+
+class UserAdmin(BaseUserAdmin):
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path('users/', self.admin_site.admin_view(views.user_list), name='user_list'),
+        ]
+        return custom_urls + urls

@@ -1,9 +1,10 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout,  get_user_model
 from django.contrib.auth.decorators import login_required
 from .models import Product, UserProfile
 from .forms import UserForm, ProductForm
+
 
 def index(request):
     products = Product.objects.all()
@@ -87,3 +88,13 @@ def edit_product(request, pk):
         form = ProductForm(instance=product)
 
     return render(request, 'edit_product.html', {'form': form, 'product': product})
+
+# Vista todos los usuarios
+def user_list(request):
+    users = get_user_model().objects.all()
+    return render(request, 'user_list.html', {'users': users})
+
+@login_required
+def user_list_public(request):
+    users = get_user_model().objects.all()
+    return render(request, 'user_list.html', {'users': users})
